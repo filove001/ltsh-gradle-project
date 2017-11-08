@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.ltsh.common.client.activemq.ActiveMQUtils">
+        <property name="acknowledgeMode" value="${activemq.acknowledgeMode}"/>
+        <property name="brokeUrl" value="${activemq.brokeUrl}"/>
+        <property name="password" value="${activemq.password}"/>
+        <property name="userName" value="${activemq.userName}"/>
+    </bean>
+
+</beans>

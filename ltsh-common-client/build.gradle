@@ -1,0 +1,20 @@
+group 'com.ltsh'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+//apply plugin: 'spring-boot'
+
+sourceCompatibility = rootProject.ext.java.sourceCompatibility
+targetCompatibility = rootProject.ext.java.targetCompatibility
+
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile project(':ltsh-common')
+    compile "org.apache.activemq:activemq-client:${rootProject.ext.version.activemqVersion}"
+    compile "redis.clients:jedis:${rootProject.ext.version.jedisVersion}"
+
+}

@@ -1,0 +1,7 @@
+/*/target/*
+/ltsh-chat-service-api/*.iml
+/.idea
+/*/*.iml
+/.gradle
+*/build
+/out

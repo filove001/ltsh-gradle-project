@@ -1,0 +1,7 @@
+include 'ltsh-util'
+include 'ltsh-common'
+include 'ltsh-common-client'
+include 'ltsh-chat-service-api'
+include 'ltsh-chat-service-impl'
+include 'ltsh-chat-web'
+

@@ -1,0 +1,20 @@
+group 'com.ltsh'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+sourceCompatibility = rootProject.ext.java.sourceCompatibility
+targetCompatibility = rootProject.ext.java.targetCompatibility
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':ltsh-util')
+    compile "commons-beanutils:commons-beanutils:${rootProject.ext.version.commonsBeanutilsVersion}"
+    compile ("com.alibaba:dubbo:${rootProject.ext.version.dubboVersion}") {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+    compile "org.projectlombok:lombok:${rootProject.ext.version.lombokVersion}"
+}

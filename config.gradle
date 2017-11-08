@@ -1,0 +1,35 @@
+ext {
+    java = [
+            sourceCompatibility: "1.8",
+            targetCompatibility: "1.8"
+    ]
+    project = [
+            projectVersion: '1.0-SNAPSHOT'
+    ]
+    dependencies = [
+            junit: "junit:junit:4.12",
+            slf4jApi: 'org.slf4j:slf4j-api:1.7.25',
+            jodaTime: 'joda-time:joda-time:2.9.9',
+            commonsLang3: 'org.apache.commons:commons-lang3:3.4',
+            fastjson: 'com.alibaba:fastjson:1.2.40',
+            commonsBeanutils: 'commons-beanutils:commons-beanutils:1.9.3'
+    ]
+    version = [
+            junitVersion: '4.12',
+            slf4jVersion: '1.7.25',
+            jodaTimeVersion: '2.9.9',
+            commonsLang3Version: '3.4',
+            fastjsonVersion: '1.2.40',
+            commonsBeanutilsVersion: '1.9.3',
+            springBootVersion: '1.5.7.RELEASE',
+            dubboVersion: '2.5.7',
+            lombokVersion: '1.16.18',
+            jedisVersion: '2.9.0',
+            beetlsqlVersion: '2.9.13',
+            mysqlConnectorJavaVersion: '6.0.6',
+            druidVersion: '1.1.5',
+            zkclientVersion: '0.10',
+            aspectjrtVersion: '1.8.12',
+            activemqVersion: '5.14.5'
+    ]
+}

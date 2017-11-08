@@ -1,0 +1,2 @@
+providerFilter=com.ltsh.common.filter.ProviderFilter
+consumerFilter=com.ltsh.common.filter.ConsumerFilter
