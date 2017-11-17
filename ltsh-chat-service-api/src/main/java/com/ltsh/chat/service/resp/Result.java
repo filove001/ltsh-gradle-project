@@ -18,7 +18,11 @@ public class Result<T> extends BaseResult<T> {
     public Result(ResultCodeEnum resultCode) {
         super(resultCode.getCode(), resultCode.getMessage());
     }
+    public Result(ResultCodeEnum resultCode, String message) {
+        super(resultCode.getCode(), String.format(resultCode.getMessage(), message));
+    }
     public Result(T content) {
         super(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), content);
     }
+
 }

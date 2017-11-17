@@ -16,15 +16,22 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
 allprojects {
-    repositories {
-        mavenLocal()
-        jcenter()
-        google()
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    configurations {
+        deployerJars
+    }
+}
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'//不使用缓存，使用仓库中最新的包
+}
+subprojects {  //表示除主工程外所有子模块
+    dependencies {
+        deployerJars "org.apache.maven.wagon:wagon-http:2.2"
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+//task clean(type: Delete) {
+//    delete rootProject.buildDir
+//}

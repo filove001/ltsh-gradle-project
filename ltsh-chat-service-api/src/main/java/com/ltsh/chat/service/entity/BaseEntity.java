@@ -30,4 +30,9 @@ public class BaseEntity implements Serializable {
      * 修改时间
      */
     private Date updateTime;
+
+    public void setCommonField(Integer createBy, Date createTime) {
+        this.createBy = createBy;
+        this.createTime = createTime;
+    }
 }

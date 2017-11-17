@@ -2,7 +2,13 @@ group 'com.ltsh'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'maven'
+//打成aar格式
+//apply from: '../release-as-aar.gradle' //引用上传插件
 
+//打成jar格式
+apply from: '../release-as-jar.gradle'
+//apply plugin: 'com.android.library'
 sourceCompatibility = rootProject.ext.java.sourceCompatibility
 targetCompatibility = rootProject.ext.java.targetCompatibility
 repositories {
@@ -15,3 +21,4 @@ dependencies {
     compile "org.apache.commons:commons-lang3:${rootProject.ext.version.commonsLang3Version}"
     compile "com.alibaba:fastjson:${rootProject.ext.version.fastjsonVersion}"
 }
+
