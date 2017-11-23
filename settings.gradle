@@ -4,4 +4,5 @@ include 'ltsh-common-client'
 include 'ltsh-chat-service-api'
 include 'ltsh-chat-service-impl'
 include 'ltsh-chat-web'
+include 'ltsh-wx-web'
 

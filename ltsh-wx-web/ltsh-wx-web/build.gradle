@@ -1,0 +1,37 @@
+group 'com.ltsh'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+sourceCompatibility = rootProject.ext.java.sourceCompatibility
+targetCompatibility = rootProject.ext.java.targetCompatibility
+
+repositories {
+    mavenCentral()
+}
+buildscript {
+    repositories {
+        mavenCentral()//依赖Maven仓库
+    }
+    dependencies {
+        //使用Spring boot框架
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.ext.version.springBootVersion}")
+    }
+}
+dependencies {
+    testCompile "junit:junit:${rootProject.ext.version.junitVersion}"
+    compile project(":ltsh-util")
+    compile project(":ltsh-common-client")
+    compile project(":ltsh-chat-service-api")
+    compile ("org.springframework.boot:spring-boot-starter-web") {
+        exclude group: "org.springframework.boot",module: "spring-boot-starter-tomcat"
+    }
+    compile "org.springframework.boot:spring-boot-starter-jetty"
+    compile "org.aspectj:aspectjrt:${rootProject.ext.version.aspectjrtVersion}"
+    compile "org.aspectj:aspectjweaver:${rootProject.ext.version.aspectjrtVersion}"
+    compile ("com.101tec:zkclient:${rootProject.ext.version.zkclientVersion}") {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'log4j', module: 'log4j'
+    }
+}

@@ -59,6 +59,7 @@
 	<!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
 
 	<!--<bean id="springContextUtils" claSpringContextUtilstils"></bean>-->
+	<bean id="springContextUtils" class="com.ltsh.common.client.spring.SpringContextUtils"></bean>
 	<import resource="classpath:spring/dubbo-provider.xml" />
 	<!--<import resource="classpath:spring/spring-client-activemq.xml" />-->
 	<import resource="classpath:spring/spring-client-all.xml" />

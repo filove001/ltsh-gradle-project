@@ -20,5 +20,7 @@ dependencies {
     compile "joda-time:joda-time:${rootProject.ext.version.jodaTimeVersion}"
     compile "org.apache.commons:commons-lang3:${rootProject.ext.version.commonsLang3Version}"
     compile "com.alibaba:fastjson:${rootProject.ext.version.fastjsonVersion}"
+    compile "com.squareup.okhttp3:okhttp:${rootProject.ext.version.okhttpVersion}"
+
 }
 

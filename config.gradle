@@ -31,7 +31,8 @@ ext {
             zkclientVersion: '0.10',
             aspectjrtVersion: '1.8.12',
             activemqVersion: '5.14.5',
-            hibernateValidatorVersion: '5.3.5.Final'
+            hibernateValidatorVersion: '5.3.5.Final',
+            okhttpVersion: '3.9.1'
     ]
     maven = [
 //            repoType = "remote" //发布到远程仓库（下文中会用到）
