@@ -126,11 +126,14 @@ public class ControllerAspect {
             if(!isLogin) {
                 throw new WebException(ResultCodeEnum.NOT_BIND_FAIL);
             }
-            Result result = validatorParams(signObj);
-            if(result != null) {
-                LogUtils.info("返回参数:{}", JsonUtils.toJsonLogStr(result, JsonUtils.getEncryption()));
-                return result;
+            if(signObj != null) {
+                Result result = validatorParams(signObj);
+                if(result != null) {
+                    LogUtils.info("返回参数:{}", JsonUtils.toJsonLogStr(result, JsonUtils.getEncryption()));
+                    return result;
+                }
             }
+
             DateTime begin = new DateTime();
             Object object = pjp.proceed();//执行该方法
             LogUtils.info("返回参数:{}", JsonUtils.toJsonLogStr(object, JsonUtils.getEncryption()));
