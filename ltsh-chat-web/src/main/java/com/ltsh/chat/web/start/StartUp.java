@@ -2,6 +2,7 @@ package com.ltsh.chat.web.start;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.ImportResource;
  */
 @ComponentScan
 @EnableAutoConfiguration
-@ImportResource("spring/spring-context.xml")
+@ImportResource("classpath:/spring/spring-context.xml")
 public class StartUp {
 
     public static void main(String[] args) throws Exception {

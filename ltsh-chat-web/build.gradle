@@ -10,6 +10,24 @@ targetCompatibility = rootProject.ext.java.targetCompatibility
 repositories {
     mavenCentral()
 }
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
 buildscript {
     repositories {
         mavenCentral()//依赖Maven仓库
@@ -24,14 +42,16 @@ dependencies {
     compile project(":ltsh-util")
     compile project(":ltsh-common-client")
     compile project(":ltsh-chat-service-api")
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.7.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter-jdbc"
     compile ("org.springframework.boot:spring-boot-starter-web") {
         exclude group: "org.springframework.boot",module: "spring-boot-starter-tomcat"
     }
     compile "org.springframework.boot:spring-boot-starter-jetty"
     compile "org.aspectj:aspectjrt:${rootProject.ext.version.aspectjrtVersion}"
     compile "org.aspectj:aspectjweaver:${rootProject.ext.version.aspectjrtVersion}"
-    compile ("com.101tec:zkclient:${rootProject.ext.version.zkclientVersion}") {
-        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
-        exclude group: 'log4j', module: 'log4j'
-    }
+    compile "com.ibeetl:beetlsql:${rootProject.ext.version.beetlsqlVersion}"
+    compile "com.alibaba:druid:${rootProject.ext.version.druidVersion}"
+    compile "mysql:mysql-connector-java:${rootProject.ext.version.mysqlConnectorJavaVersion}"
 }

@@ -35,7 +35,7 @@ public class UserFriendController extends BaseController {
     @RequestMapping("/add")
     @CheckLogin
     public Result<PageResult<FriendQueryResp>> add(UserFriendAddReq req){
-        com.ltsh.chat.service.req.friend.UserFriendAddReq pageReq = new UserFriendAddReq();
+        com.ltsh.chat.service.req.friend.UserFriendAddReq pageReq = new com.ltsh.chat.service.req.friend.UserFriendAddReq();
         BeanUtils.copyProperties(req, pageReq);
         return userFriendService.add(pageReq);
     }

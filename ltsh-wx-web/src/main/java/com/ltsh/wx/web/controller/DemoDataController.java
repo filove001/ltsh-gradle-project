@@ -24,30 +24,19 @@ import java.util.Map;
 @Controller
 @RequestMapping("/wx/demo")
 public class DemoDataController extends BaseController {
-    @ResponseBody
-    @RequestMapping("/yd")
-    public Result<List> yd(HttpServletRequest request, @RequestBody PageReq req){
-
-        List<Map> list = new ArrayList<Map>();
-
-        for (int i = req.getPageNumber() * req.getPageSize(); i < (req.getPageNumber() + 1) * req.getPageSize(); i++) {
-            Map map = new HashMap();
-            map.put("title", "Adrift - 茫然无依之时" + i);
-            map.put("desc", "In 1982 Steven Callahan was crossing the Atlantic alone in his sailboat when it struck something and sank. 1982年，史蒂文·卡拉翰驶着帆船独自横渡大西洋时，帆船撞沉了");
-            map.put("imageSrc", "http://www.gec-online.org/uploadfile/2016/0328/thumb_200_116_20160328123715494.jpg");
-            list.add(map);
+    private void sleep(long time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if(req.getPageNumber() > 5) {
-            return new Result<List>(ResultCodeEnum.SUCCEED);
-        }
-        return new Result(list);
     }
     @ResponseBody
     @RequestMapping("/xw")
     public Result<List> xw(HttpServletRequest request, @RequestBody PageReq req){
         List<Map> list = new ArrayList<Map>();
-
-        for (int i = req.getPageNumber() * req.getPageSize(); i < (req.getPageNumber() + 1) * req.getPageSize(); i++) {
+        sleep(2000L);
+        for (int i = req.getStartNumber(); i < req.getEndNumber(); i++) {
             Map map = new HashMap();
             map.put("title", "【中英双语】国外网民评论中国女留学生东京公寓外被刺亡" + i);
             map.put("desc", "A 24-year-old Chinese woman studying at a Japanese language institute in Tokyo has died after 就读于东京的日语学院的24岁中国女孩在她的公寓外面被刺了以后，死在了中野病房里");
@@ -60,11 +49,30 @@ public class DemoDataController extends BaseController {
         return new Result(list);
     }
     @ResponseBody
+    @RequestMapping("/yd")
+    public Result<List> yd(HttpServletRequest request, @RequestBody PageReq req){
+
+        List<Map> list = new ArrayList<Map>();
+        sleep(2000L);
+        for (int i = req.getStartNumber(); i < req.getEndNumber(); i++) {
+            Map map = new HashMap();
+            map.put("title", "Adrift - 茫然无依之时" + i);
+            map.put("desc", "In 1982 Steven Callahan was crossing the Atlantic alone in his sailboat when it struck something and sank. 1982年，史蒂文·卡拉翰驶着帆船独自横渡大西洋时，帆船撞沉了");
+            map.put("imageSrc", "http://www.gec-online.org/uploadfile/2016/0328/thumb_200_116_20160328123715494.jpg");
+            list.add(map);
+        }
+        if(req.getPageNumber() > 5) {
+            return new Result<List>(ResultCodeEnum.SUCCEED);
+        }
+        return new Result(list);
+    }
+
+    @ResponseBody
     @RequestMapping("/hd")
     public Result<List> hd(HttpServletRequest request, @RequestBody PageReq req){
         List<Map> list = new ArrayList<Map>();
-
-        for (int i = req.getPageNumber() * req.getPageSize(); i < (req.getPageNumber() + 1) * req.getPageSize(); i++) {
+        sleep(2000L);
+        for (int i = req.getStartNumber(); i < req.getEndNumber(); i++) {
             Map map = new HashMap();
             map.put("title", "2017.12.3 - GEC社团户外游览第28期活动" + i);
             map.put("desc", "在广州，有一个小岛 也许你从未踏足过 也许你完全不了解 也许，你甚至听都没听说过 但它一直在那…… 静静的 等你。。");
@@ -80,8 +88,8 @@ public class DemoDataController extends BaseController {
     @RequestMapping("/st")
     public Result<List> st(HttpServletRequest request, @RequestBody PageReq req){
         List<Map> list = new ArrayList<Map>();
-
-        for (int i = req.getPageNumber() * req.getPageSize(); i < (req.getPageNumber() + 1) * req.getPageSize(); i++) {
+        sleep(2000L);
+        for (int i = req.getStartNumber(); i < req.getEndNumber(); i++) {
             Map map = new HashMap();
             map.put("title", "Long - 助人己乐" + i);
             map.put("desc", "来自五湖四海的朋友们：您们好！我是long（全名朱月龙），来自赣州龙南，是很好客的客家人，爱好广泛〈看书、交友、与人交谈〉。");
@@ -97,8 +105,8 @@ public class DemoDataController extends BaseController {
     @RequestMapping("/bg")
     public Result<List> bg(HttpServletRequest request, @RequestBody PageReq req){
         List<Map> list = new ArrayList<Map>();
-
-        for (int i = req.getPageNumber() * req.getPageSize(); i < (req.getPageNumber() + 1) * req.getPageSize(); i++) {
+        sleep(2000L);
+        for (int i = req.getStartNumber(); i < req.getEndNumber(); i++) {
             Map map = new HashMap();
             map.put("title", "大家族万圣节" + i);
             map.put("desc", "万圣节又叫诸圣节，在每年的11月1日是西方的传统节日。而万圣节前夜的10月31日是这个节日最热闹的时候，在中国把万圣节前夜讹译为万圣节。");

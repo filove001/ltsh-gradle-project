@@ -15,4 +15,11 @@ public class PageReq extends AppContext {
     private Integer pageNumber;
     @NotNull
     private Integer pageSize;
+
+    public Integer getStartNumber() {
+        return (pageNumber - 1) * pageSize;
+    }
+    public Integer getEndNumber() {
+        return (pageNumber - 1) * pageSize + pageSize;
+    }
 }
