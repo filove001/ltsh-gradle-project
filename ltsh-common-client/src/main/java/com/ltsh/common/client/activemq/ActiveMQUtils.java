@@ -93,15 +93,22 @@ public class ActiveMQUtils {
 
 
             TextMessage textMessage = (TextMessage)consumer.receive(pollTime);
+//            session.commit();
             if(textMessage != null) {
                 String text = textMessage.getText();
                 if(!StringUtils.isEmpty(text)) {
                     return JsonUtils.fromJson(text, classT);
                 }
             }
+
         } finally {
-            consumer.close();
-            session.commit();
+            if(consumer != null) {
+                consumer.close();
+            }
+//            if(session != null) {
+//
+//            }
+
         }
 
 

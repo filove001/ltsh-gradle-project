@@ -6,3 +6,4 @@
 */build
 /out
 build/*
+/ltsh-*/out/

@@ -42,10 +42,11 @@ public class MessageServiceImplTest {
         MessageSendServiceReq req = new MessageSendServiceReq();
         req.setMsgType("0");
         req.setSendType("0");
-        UserToken userToken = new UserToken(1, "test2", "", "", StringUtils.getUUID());
+        UserToken userToken = new UserToken(2, "test2", "", "", StringUtils.getUUID());
         req.setUserToken(userToken);
         req.setToUser(1);
         req.setToUserName("test1");
+        req.setMsgContext("你好啊");
         messageService.sendMsg(req);
     }
 
