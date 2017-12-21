@@ -5,7 +5,7 @@ import com.ltsh.chat.service.api.MessageService;
 import com.ltsh.chat.service.dao.MessageDao;
 import com.ltsh.chat.service.entity.MessageInfo;
 import com.ltsh.chat.service.enums.ResultCodeEnum;
-import com.ltsh.chat.service.dao.UserInfoDao;
+import com.ltsh.chat.service.dao.user.UserInfoDao;
 import com.ltsh.chat.service.entity.UserInfo;
 import com.ltsh.chat.service.enums.StatusEnums;
 import com.ltsh.chat.service.req.message.MessageGetServiceReq;

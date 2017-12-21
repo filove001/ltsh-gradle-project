@@ -5,7 +5,7 @@ import com.ltsh.chat.service.enums.ResultCodeEnum;
 import com.ltsh.chat.service.req.user.LoginQueryServiceReq;
 import com.ltsh.chat.service.req.user.RandomServiceStrGetReq;
 import com.ltsh.chat.service.resp.user.RandomStrGetResp;
-import com.ltsh.chat.service.dao.UserInfoDao;
+import com.ltsh.chat.service.dao.user.UserInfoDao;
 import com.ltsh.chat.service.entity.UserInfo;
 import com.ltsh.chat.service.enums.StatusEnums;
 import com.ltsh.chat.service.req.user.LoginVerifyServiceReq;
@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserInfoDao userInfoDao;
+
 
     /**
      * 注册

@@ -1,8 +1,8 @@
 package com.ltsh.chat.service.impl;
 
 import com.ltsh.chat.service.api.UserFriendService;
-import com.ltsh.chat.service.dao.UserFriendDao;
-import com.ltsh.chat.service.dao.UserInfoDao;
+import com.ltsh.chat.service.dao.user.UserFriendDao;
+import com.ltsh.chat.service.dao.user.UserInfoDao;
 import com.ltsh.chat.service.entity.UserFriend;
 import com.ltsh.chat.service.entity.UserInfo;
 import com.ltsh.chat.service.enums.ResultCodeEnum;
@@ -12,7 +12,6 @@ import com.ltsh.chat.service.resp.FriendQueryResp;
 import com.ltsh.chat.service.resp.PageResult;
 import com.ltsh.chat.service.resp.Result;
 import org.beetl.sql.core.engine.PageQuery;
-import org.beetl.sql.test.UserDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

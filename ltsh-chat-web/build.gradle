@@ -41,7 +41,7 @@ dependencies {
     testCompile "junit:junit:${rootProject.ext.version.junitVersion}"
     compile project(":ltsh-util")
     compile project(":ltsh-common-client")
-    compile project(":ltsh-chat-service-api")
+    //compile project(":ltsh-chat-service-api")
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.7.RELEASE'
     compile "org.springframework.boot:spring-boot-starter-jdbc"

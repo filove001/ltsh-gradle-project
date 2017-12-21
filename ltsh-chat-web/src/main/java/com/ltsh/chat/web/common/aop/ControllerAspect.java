@@ -119,10 +119,18 @@ public class ControllerAspect {
                 }
             }
             MDC.put("keep", keep);
-            LogUtils.info("请求方法:{}.{},请求参数:{}",
-                    pjp.getTarget().getClass().getName(),
-                    pjp.getSignature().getName(),
-                    JsonUtils.toJsonLogStr(list, JsonUtils.getEncryption()));
+            boolean isSkip = false;
+
+            if(!pjp.getSignature().getName().equals("getMessage")) {
+                isSkip = true;
+            }
+            if(!isSkip) {
+                LogUtils.info("请求方法:{}.{},请求参数:{}",
+                        pjp.getTarget().getClass().getName(),
+                        pjp.getSignature().getName(),
+                        JsonUtils.toJsonLogStr(list, JsonUtils.getEncryption()));
+            }
+
 
             Set<ConstraintViolation<Object>> validate = validator.validate(signObj);
             Iterator<ConstraintViolation<Object>> iterator = validate.iterator();
@@ -138,7 +146,10 @@ public class ControllerAspect {
 
             String reqSignInfo = signObj.getSignInfo();
             String signStr = SignUtils.getSignStr(signObj);
-            LogUtils.info("签名明文:{}", signStr);
+            if(!isSkip) {
+                LogUtils.info("签名明文:{}", signStr);
+            }
+
             String sign = null;
             if(signObj.getRandomKey() != null) {
                 String randomStr = RedisUtil.get(RedisKey.getRedisKey(RedisKey.RANDOM_KEY, signObj.getMedium(), signObj.getRandomKey()));
@@ -148,7 +159,7 @@ public class ControllerAspect {
             } else {
                 sign = SignUtils.getSign(signStr, "123456", "");
             }
-            LogUtils.info("签名:{}", sign);
+//            LogUtils.info("签名:{}", sign);
             if(!reqSignInfo.equals(sign)) {
                 throw new WebException(ResultCodeEnum.SIGN_FAIL);
 
@@ -160,12 +171,16 @@ public class ControllerAspect {
 
             DateTime begin = new DateTime();
             Object object = pjp.proceed();//执行该方法
-            LogUtils.info("返回参数:{}", JsonUtils.toJsonLogStr(object, JsonUtils.getEncryption()));
+            if(!isSkip) {
+                LogUtils.info("返回参数:{}", JsonUtils.toJsonLogStr(object, JsonUtils.getEncryption()));
+            }
             DateTime end = new DateTime();
             //计算区间毫秒数
             Duration d = new Duration(begin, end);
             long millis = d.getMillis();
-            LogUtils.info("执行时间:{} ms", millis);
+            if(!isSkip) {
+                LogUtils.info("执行时间:{} ms", millis);
+            }
             return object;
         } catch (Exception e) {
             if(e instanceof WebException) {

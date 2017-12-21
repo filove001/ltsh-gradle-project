@@ -1,10 +1,10 @@
 package com.ltsh.chat.service.api;
 
 import com.ltsh.chat.service.req.user.LoginQueryServiceReq;
-import com.ltsh.chat.service.req.user.UserRegisterServiceReq;
-import com.ltsh.chat.service.resp.Result;
 import com.ltsh.chat.service.req.user.LoginVerifyServiceReq;
 import com.ltsh.chat.service.req.user.RandomServiceStrGetReq;
+import com.ltsh.chat.service.req.user.UserRegisterServiceReq;
+import com.ltsh.chat.service.resp.Result;
 import com.ltsh.chat.service.resp.user.RandomStrGetResp;
 import com.ltsh.common.entity.UserToken;
 
