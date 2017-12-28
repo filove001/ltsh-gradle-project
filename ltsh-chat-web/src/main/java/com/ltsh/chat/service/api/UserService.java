@@ -1,5 +1,6 @@
 package com.ltsh.chat.service.api;
 
+import com.ltsh.chat.service.entity.UserInfo;
 import com.ltsh.chat.service.req.user.LoginQueryServiceReq;
 import com.ltsh.chat.service.req.user.LoginVerifyServiceReq;
 import com.ltsh.chat.service.req.user.RandomServiceStrGetReq;
@@ -11,7 +12,7 @@ import com.ltsh.common.entity.UserToken;
 /**
  * Created by Random on 2017/10/10.
  */
-public interface UserService {
+public interface UserService extends BaseService<UserInfo> {
     /**
      * 注册
      * @param req

@@ -7,7 +7,7 @@ import lombok.Data;
  * Created by Random on 2017/10/23.
  */
 @Data
-public class PageReq extends ToKenContext {
+public class PageReq<T> extends ToKenContext<T> {
     /**
      * 当前页
      */

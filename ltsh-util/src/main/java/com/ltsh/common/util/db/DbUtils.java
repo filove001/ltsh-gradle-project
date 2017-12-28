@@ -5,6 +5,7 @@ package com.ltsh.common.util.db;
 import com.ltsh.common.util.LogUtils;
 import com.ltsh.common.util.Names;
 import com.ltsh.common.util.bean.FieldUtils;
+import com.ltsh.common.util.bean.PropertyMethod;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;

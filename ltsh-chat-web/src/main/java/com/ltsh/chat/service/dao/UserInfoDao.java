@@ -6,5 +6,5 @@ import org.beetl.sql.core.mapper.BaseMapper;
 /**
  * Created by Random on 2017/10/9.
  */
-public interface UserInfoDao extends BaseMapper<UserInfo> {
+public interface UserInfoDao extends BaseDao<UserInfo> {
 }

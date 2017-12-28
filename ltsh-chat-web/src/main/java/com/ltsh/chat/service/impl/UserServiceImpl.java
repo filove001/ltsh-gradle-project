@@ -1,11 +1,11 @@
 package com.ltsh.chat.service.impl;
 
 import com.ltsh.chat.service.api.UserService;
+import com.ltsh.chat.service.dao.UserInfoDao;
 import com.ltsh.chat.service.enums.ResultCodeEnum;
 import com.ltsh.chat.service.req.user.LoginQueryServiceReq;
 import com.ltsh.chat.service.req.user.RandomServiceStrGetReq;
 import com.ltsh.chat.service.resp.user.RandomStrGetResp;
-import com.ltsh.chat.service.dao.user.UserInfoDao;
 import com.ltsh.chat.service.entity.UserInfo;
 import com.ltsh.chat.service.enums.StatusEnums;
 import com.ltsh.chat.service.req.user.LoginVerifyServiceReq;
@@ -30,7 +30,7 @@ import java.util.List;
  * Created by Random on 2017/10/11.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<UserInfo> implements UserService {
 
     @Autowired
     private UserInfoDao userInfoDao;

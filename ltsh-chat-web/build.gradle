@@ -19,14 +19,19 @@ sourceSets {
             srcDir 'src/main/resources'
         }
     }
-    test {
-        java {
-            srcDir 'src/test/java'
-        }
-        resources {
-            srcDir 'src/test/resources'
-        }
-    }
+//    testClasses {
+//        java {
+//            srcDir 'src/test/java'
+//        }
+//    }
+//    test {
+//        java {
+//            srcDir 'src/test/java'
+//        }
+//        resources {
+//            srcDir 'src/test/resources'
+//        }
+//    }
 }
 buildscript {
     repositories {
@@ -43,7 +48,6 @@ dependencies {
     compile project(":ltsh-common-client")
     //compile project(":ltsh-chat-service-api")
     testCompile "org.springframework.boot:spring-boot-starter-test"
-    testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.7.RELEASE'
     compile "org.springframework.boot:spring-boot-starter-jdbc"
     compile ("org.springframework.boot:spring-boot-starter-web") {
         exclude group: "org.springframework.boot",module: "spring-boot-starter-tomcat"

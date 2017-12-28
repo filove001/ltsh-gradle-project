@@ -1,7 +1,6 @@
 package com.ltsh.common.util.bean;
 
 import com.ltsh.common.util.LogUtils;
-import com.ltsh.common.util.db.PropertyMethod;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

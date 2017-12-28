@@ -53,5 +53,13 @@ public class MessageInfo extends BaseEntity {
      * 状态
      */
     private String status;
+    /**
+     * 来源id
+     */
+    private String sourceId;
+    /**
+     * 来源类型
+     */
+    private String sourceType;
 
 }
