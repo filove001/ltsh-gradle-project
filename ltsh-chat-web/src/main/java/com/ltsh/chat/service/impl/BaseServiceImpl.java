@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by fengjianbo on 2017/12/28.
  */
-public class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
+public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
     protected BaseDao baseDao;
     @Override
     public Result insert(ToKenContext<T> req) {
@@ -69,7 +69,7 @@ public class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
      * @return
      */
     public Result<PageResult<T>> page(PageReq<T> req) {
-        PageQuery<T> pageQuery = new PageQuery<>();
+        PageQuery pageQuery = new PageQuery<>();
         pageQuery.setPageNumber(req.getPageNumber());
         pageQuery.setPageSize(req.getPageSize());
         pageQuery.setParas(req.getContent());

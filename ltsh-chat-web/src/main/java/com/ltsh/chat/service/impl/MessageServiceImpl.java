@@ -63,6 +63,8 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
         entity.setCreateBy(req.getUserToken().getId());
         entity.setSendUser(req.getUserToken().getId());
         entity.setStatus(StatusEnums.FSZ.getValue());
+        entity.setSourceType("USER");
+        entity.setSourceId(req.getUserToken().getId() + "");
         messageDao.insert(entity);
         try {
             LogUtils.info("发送消息内容为:{}", JsonUtils.toJson(entity));
@@ -104,22 +106,15 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
 
 
     @Override
-    public Result<MessageGetServiceResp> getMsg(MessageGetServiceReq req) {
+    public Result<MessageInfo> getMsg(MessageGetServiceReq req) {
         try {
             MessageInfo messageInfo = activeMQUtils.getMessage(req.getUserToken().getId() + "", MessageInfo.class);
-            MessageGetServiceResp resp = null;
             if(messageInfo != null) {
-                resp = new MessageGetServiceResp();
                 LogUtils.info("获取消息内容为:{}", JsonUtils.toJson(messageInfo));
-                BeanUtils.copyProperties(messageInfo, resp, new String[]{""});
-                UserInfo createUser = userInfoDao.getSQLManager().unique(UserInfo.class, messageInfo.getCreateBy());
-                UserInfo toUser = userInfoDao.getSQLManager().unique(UserInfo.class, messageInfo.getToUser());
-                resp.setCreateByName(createUser.getName());
-                resp.setToUserName(toUser.getName());
-                messageInfo.setStatus(StatusEnums.YFS.getValue());
+                messageInfo.setStatus(StatusEnums.YSD.getValue());
                 messageDao.updateById(messageInfo);
             }
-            return new Result<MessageGetServiceResp>(resp);
+            return new Result<MessageInfo>(messageInfo);
         } catch (Exception e) {
             LogUtils.error("获取消息失败!", e);
         }

@@ -42,6 +42,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserInfo> implements UserSe
      * @return
      */
     public Result register(UserRegisterServiceReq req) {
+        UserInfo searchUser = new UserInfo();
+        searchUser.setLoginName(req.getLoginName());
+        List<UserInfo> template = userInfoDao.template(searchUser);
+        if(!template.isEmpty()) {
+            return new Result(ResultCodeEnum.REPETITION, "用户");
+
+        }
         UserInfo userInfo = new UserInfo();
         userInfo.setCreateBy(0);
         userInfo.setCreateTime(new Date());
@@ -50,7 +57,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserInfo> implements UserSe
         userInfo.setStatus(StatusEnums.KY.getValue());
         userInfoDao.insert(userInfo);
         return new Result();
-    }
+}
     @Override
     public Result<UserToken> loginQuery(LoginQueryServiceReq req) {
         String s = RedisUtil.get(RedisKey.getRedisKey(RedisKey.TOKEN_KEY, req.getMedium(), req.getToken()));

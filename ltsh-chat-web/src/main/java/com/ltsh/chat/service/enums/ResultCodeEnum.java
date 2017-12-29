@@ -6,6 +6,7 @@ package com.ltsh.chat.service.enums;
 public enum ResultCodeEnum {
     SUCCESS("000000", "成功"),
     FAIL("990001", "%s失败"),
+    REPETITION("990002", "%s重复"),
     SIGN_FAIL("990002", "验签失败"),
     PARAM_CHACK_FAIL("990003", "参数校验失败"),
     TOKEN_FAIL("990004", "token已失效"),

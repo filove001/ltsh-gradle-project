@@ -4,6 +4,7 @@ package com.ltsh.chat.service.impl;
 
 import com.ltsh.chat.service.api.MessageService;
 
+import com.ltsh.chat.service.entity.MessageInfo;
 import com.ltsh.chat.service.enums.SendTypeEnums;
 import com.ltsh.chat.service.req.message.MessageSendGroupReq;
 import com.ltsh.chat.service.req.message.MessageSendServiceReq;
@@ -41,15 +42,16 @@ public class MessageServiceImplTest {
 
     @Test
     public void sendMsg() throws Exception {
-//        MessageSendServiceReq req = new MessageSendServiceReq();
-//        req.setMsgType("0");
-//        req.setSendType("0");
-//        UserToken userToken = new UserToken(2, "test2", "", "", StringUtils.getUUID());
-//        req.setUserToken(userToken);
-//        req.setToUser(1);
-//        req.setToUserName("test1");
-//        req.setMsgContext("你好啊");
-//        messageService.sendMsg(req);
+        ToKenContext<MessageInfo> toKenContext = new ToKenContext<>();
+        MessageInfo messageInfo = new MessageInfo();
+        messageInfo.setMsgType(0);
+        messageInfo.setSendType(SendTypeEnums.SX.getValue());
+        messageInfo.setMsgContext("你好啊");
+        messageInfo.setToUser(1);
+        toKenContext.setContent(messageInfo);
+        UserToken userToken = new UserToken(2, "test2", "", "", StringUtils.getUUID());
+        toKenContext.setUserToken(userToken);
+        messageService.sendMsg(toKenContext);
     }
     @Test
     public void sendGroupMsg() throws Exception {
@@ -59,7 +61,7 @@ public class MessageServiceImplTest {
         req.setMsgType(0);
         req.setSendType(SendTypeEnums.QZ.getValue());
         req.setGroupId(1);
-        UserToken userToken = new UserToken(1, "test1", "", "", StringUtils.getUUID());
+        UserToken userToken = new UserToken(2, "test2", "", "", StringUtils.getUUID());
         toKenContext.setUserToken(userToken);
         req.setToUser(1);
 //        req.setToUserName("test1");

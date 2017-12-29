@@ -84,4 +84,16 @@ public class MessageGetServiceResp extends BaseResp {
      * 状态
      */
     private String status;
+    /**
+     * 来源名称
+     */
+    private String sourceName;
+    /**
+     * 来源id
+     */
+    private String sourceId;
+    /**
+     * 来源类型
+     */
+    private String sourceType;
 }

@@ -26,6 +26,6 @@ public interface MessageService extends BaseService<MessageInfo> {
      * 获取消息
      * @param req
      */
-    public Result<MessageGetServiceResp> getMsg(MessageGetServiceReq req);
+    public Result<MessageInfo> getMsg(MessageGetServiceReq req);
 
 }

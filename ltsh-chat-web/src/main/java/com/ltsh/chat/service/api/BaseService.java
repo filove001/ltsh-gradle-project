@@ -1,6 +1,7 @@
 package com.ltsh.chat.service.api;
 
 
+import com.ltsh.chat.service.entity.BaseEntity;
 import com.ltsh.chat.service.req.PageReq;
 import com.ltsh.chat.service.resp.PageResult;
 import com.ltsh.chat.service.resp.Result;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by fengjianbo on 2017/12/28.
  */
-public interface BaseService<T> {
+public interface BaseService<T extends BaseEntity> {
     /**
      * 添加
      * @param req

@@ -27,7 +27,7 @@ public class ActiveMQUtils {
     private String brokeUrl = ActiveMQConnection.DEFAULT_BROKER_URL;
     //
     private int acknowledgeMode = Session.AUTO_ACKNOWLEDGE;
-    private Long pollTime = 60 * 1000L;
+    private Long pollTime = 20 * 1000L;
 //    private Gson gson = new Gson();
 
 

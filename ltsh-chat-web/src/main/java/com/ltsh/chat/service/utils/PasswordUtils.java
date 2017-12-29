@@ -22,4 +22,9 @@ public class PasswordUtils {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        String password = createPassword("hBoA0kF+mAexl5vSroKlpg==");
+        System.out.println(password);
+    }
 }

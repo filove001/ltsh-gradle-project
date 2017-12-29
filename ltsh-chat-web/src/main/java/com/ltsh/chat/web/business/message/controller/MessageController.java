@@ -3,6 +3,7 @@ package com.ltsh.chat.web.business.message.controller;
 
 import com.ltsh.chat.service.api.MessageService;
 
+import com.ltsh.chat.service.entity.MessageInfo;
 import com.ltsh.chat.service.req.message.MessageGetServiceReq;
 import com.ltsh.chat.service.req.message.MessageSendServiceReq;
 import com.ltsh.chat.service.resp.MessageGetServiceResp;
@@ -37,7 +38,7 @@ public class MessageController extends BaseController {
     @ResponseBody
     @RequestMapping("/getMessage")
     @CheckLogin
-    public Result<MessageGetServiceResp> getMessage(MessageGetReq req){
+    public Result<MessageInfo> getMessage(MessageGetReq req){
         MessageGetServiceReq getMessageReq = new MessageGetServiceReq();
         BeanUtils.copyProperties(req, getMessageReq);
         return messageService.getMsg(getMessageReq);

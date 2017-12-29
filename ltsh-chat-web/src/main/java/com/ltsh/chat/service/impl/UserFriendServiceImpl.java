@@ -8,6 +8,7 @@ import com.ltsh.chat.service.entity.UserFriend;
 import com.ltsh.chat.service.req.PageReq;
 import com.ltsh.chat.service.resp.PageResult;
 import com.ltsh.chat.service.resp.Result;
+import org.beetl.sql.core.engine.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,52 +28,13 @@ public class UserFriendServiceImpl extends BaseServiceImpl<UserFriend> implement
 
     @Override
     public Result<PageResult<UserFriend>> page(PageReq<UserFriend> req) {
+        if(req.getContent() == null) {
+            req.setContent(new UserFriend());
+        }
         req.getContent().setCreateBy(req.getUserToken().getId());
+
         return super.page(req);
     }
-
-    //    @Override
-//    public Result<PageResult<FriendQueryResp>> page(PageReq req) {
-//        UserFriend userFriend = new UserFriend();
-//        userFriend.setCreateBy(req.getUserToken().getId());
-//        BeanUtils.copyProperties(req, userFriend);
-//        PageQuery<UserFriend> pageQuery = new PageQuery<>();
-//        pageQuery.setPageNumber(req.getPageNumber());
-//        pageQuery.setPageSize(req.getPageSize());
-//        pageQuery.setParas(userFriend);
-//        userFriendDao.page(pageQuery);
-//        PageResult<FriendQueryResp> pageResult = new PageResult<>();
-//        pageResult.setPageNumber(pageQuery.getPageNumber());
-//        pageResult.setPageSize(pageQuery.getPageSize());
-//        pageResult.setTotalRow(pageQuery.getTotalRow());
-//        List<FriendQueryResp> respList = new ArrayList<>();
-//        for (UserFriend tmp: pageQuery.getList()) {
-//            FriendQueryResp friendQueryResp = new FriendQueryResp();
-//            BeanUtils.copyProperties(tmp, friendQueryResp);
-//            respList.add(friendQueryResp);
-//        }
-//        pageResult.setResultList(respList);
-////        userFriendDao.getSQLManager().get
-//        return new Result(pageResult);
-//    }
-//    public Result add(UserFriendAddReq req) {
-//        UserFriend userFriend = new UserFriend();
-//        userFriend.setName(req.getName());
-//        userFriend.setType(req.getType());
-//        userFriend.setSort(req.getSort());
-//        UserInfo userInfo = new UserInfo();
-//        userInfo.setLoginName(req.getLoginName());
-//        userInfo = userInfoDao.getSQLManager().templateOne(userInfo);
-//        if(userInfo != null) {
-//            userFriend.setFriendUserId(userInfo.getId());
-//            userFriend.setCommonField(req.getUserToken().getId(), new Date());
-//            userFriendDao.insert(userFriend);
-//        } else {
-//            return new Result<>(ResultCodeEnum.FAIL, "添加");
-//        }
-//        return new Result<>(ResultCodeEnum.SUCCESS);
-//    }
-
 
     @Override
     public Result repetitionVerify(UserFriend content) {
