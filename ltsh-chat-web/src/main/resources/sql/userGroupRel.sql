@@ -3,7 +3,7 @@ page
 select @pageTag(){
 #use("cols")#
 @}
-	from user_group where #use("condition")#
+	from user_group_rel where #use("condition")#
 cols
 ===
     
@@ -17,17 +17,15 @@ cols
         
         update_time,
         
-        name,
+        nick_name,
         
-        type,
+        role,
         
-        status,
+        level,
         
-        owner,
+        group_id,
         
-        validity,
-        
-        level_type
+        user_id
 condition
 ===
 	1 = 1
@@ -52,27 +50,23 @@ condition
              and update_time=#updateTime#
         @}
         
-        @if(!isEmpty(name)){
-             and name=#name#
+        @if(!isEmpty(nickName)){
+             and nick_name=#nickName#
         @}
         
-        @if(!isEmpty(type)){
-             and type=#type#
+        @if(!isEmpty(role)){
+             and role=#role#
         @}
         
-        @if(!isEmpty(status)){
-             and status=#status#
+        @if(!isEmpty(level)){
+             and level=#level#
         @}
         
-        @if(!isEmpty(owner)){
-             and owner=#owner#
+        @if(!isEmpty(groupId)){
+             and group_id=#groupId#
         @}
         
-        @if(!isEmpty(validity)){
-             and validity=#validity#
-        @}
-        
-        @if(!isEmpty(levelType)){
-             and level_type=#levelType#
+        @if(!isEmpty(userId)){
+             and user_id=#userId#
         @}
     

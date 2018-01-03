@@ -13,6 +13,7 @@ import com.ltsh.chat.web.business.message.req.MessageSendReq;
 import com.ltsh.chat.web.common.annotation.CheckLogin;
 import com.ltsh.chat.web.common.controller.BaseController;
 
+import com.ltsh.common.entity.ToKenContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,13 @@ public class MessageController extends BaseController {
     @RequestMapping("/sendMessage")
     @CheckLogin
     public Result<String> sendMessage(MessageSendReq req){
-        MessageSendServiceReq sendMessageServiceReq = new MessageSendServiceReq();
-        BeanUtils.copyProperties(req, sendMessageServiceReq);
-        return messageService.sendMsg(sendMessageServiceReq);
+        ToKenContext<MessageInfo> toKenContext = new ToKenContext<>();
+        MessageInfo messageInfo = new MessageInfo();
+
+        BeanUtils.copyProperties(req, toKenContext);
+        BeanUtils.copyProperties(req, messageInfo);
+        toKenContext.setContent(messageInfo);
+        return messageService.sendMsg(toKenContext);
     }
     @ResponseBody
     @RequestMapping("/getMessage")

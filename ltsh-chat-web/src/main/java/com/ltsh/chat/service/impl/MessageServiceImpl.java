@@ -69,7 +69,7 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
         try {
             LogUtils.info("发送消息内容为:{}", JsonUtils.toJson(entity));
             activeMQUtils.sendMessage(entity.getToUser() + "",entity);
-            return new Result();
+            return new Result(ResultCodeEnum.SUCCESS);
         } catch (Exception e) {
             LogUtils.error("发送消息失败!", e);
         }

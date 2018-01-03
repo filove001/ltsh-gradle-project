@@ -121,7 +121,7 @@ public class ControllerAspect {
             MDC.put("keep", keep);
             boolean isSkip = false;
 
-            if(!pjp.getSignature().getName().equals("getMessage")) {
+            if(pjp.getSignature().getName().equals("getMessage")) {
                 isSkip = true;
             }
             if(!isSkip) {
