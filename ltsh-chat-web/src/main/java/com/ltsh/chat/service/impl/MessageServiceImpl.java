@@ -4,22 +4,19 @@ package com.ltsh.chat.service.impl;
 import com.ltsh.chat.service.api.BaseService;
 import com.ltsh.chat.service.api.MessageService;
 import com.ltsh.chat.service.api.UserGroupRelService;
-import com.ltsh.chat.service.dao.MessageDao;
-import com.ltsh.chat.service.dao.UserGroupDao;
-import com.ltsh.chat.service.dao.UserGroupRelDao;
-import com.ltsh.chat.service.dao.UserInfoDao;
+import com.ltsh.chat.service.dao.*;
 import com.ltsh.chat.service.entity.MessageInfo;
+import com.ltsh.chat.service.entity.MessageInfoFile;
 import com.ltsh.chat.service.entity.UserGroupRel;
 import com.ltsh.chat.service.enums.ResultCodeEnum;
-import com.ltsh.chat.service.entity.UserInfo;
 import com.ltsh.chat.service.enums.StatusEnums;
-import com.ltsh.chat.service.req.message.MessageGetServiceReq;
+import com.ltsh.chat.service.req.message.MessageSendFileReq;
 import com.ltsh.chat.service.req.message.MessageSendGroupReq;
-import com.ltsh.chat.service.req.message.MessageSendServiceReq;
-import com.ltsh.chat.service.resp.MessageGetServiceResp;
+
 import com.ltsh.chat.service.resp.Result;
 import com.ltsh.common.client.activemq.ActiveMQUtils;
 import com.ltsh.common.entity.ToKenContext;
+import com.ltsh.common.util.StringUtils;
 import com.ltsh.common.utils.BeanUtils;
 
 
@@ -27,6 +24,7 @@ import com.ltsh.common.util.JsonUtils;
 import com.ltsh.common.util.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.plugin2.message.Message;
 
 import java.util.Date;
 import java.util.List;
@@ -47,6 +45,8 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
     private UserGroupDao userGroupDao;
     @Autowired
     private UserGroupRelDao userGroupRelDao;
+    @Autowired
+    private MessageInfoFileDao messageInfoFileDao;
 //    @Autowired
 //    private UserGroupRelService userGroupRelService;
     @Autowired
@@ -56,26 +56,48 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
     }
 
     @Override
-    public Result sendMsg(ToKenContext<MessageInfo> req) {
+    public Result<MessageInfo> sendMsg(ToKenContext<MessageInfo> req) {
         MessageInfo entity = req.getContent();
 //        BeanUtils.copyProperties(req, entity);
         entity.setCreateTime(new Date());
         entity.setCreateBy(req.getUserToken().getId());
         entity.setSendUser(req.getUserToken().getId());
         entity.setStatus(StatusEnums.FSZ.getValue());
-        entity.setSourceType("USER");
-        entity.setSourceId(req.getUserToken().getId() + "");
-        messageDao.insert(entity);
+        if(StringUtils.isEmpty(entity.getSourceType())) {
+            entity.setSourceType("USER");
+            entity.setSourceId(req.getUserToken().getId() + "");
+        }
+
+        messageDao.insert(entity, true);
         try {
             LogUtils.info("发送消息内容为:{}", JsonUtils.toJson(entity));
             activeMQUtils.sendMessage(entity.getToUser() + "",entity);
-            return new Result(ResultCodeEnum.SUCCESS);
+            return new Result<MessageInfo>(entity);
         } catch (Exception e) {
             LogUtils.error("发送消息失败!", e);
         }
         return new Result(ResultCodeEnum.FAIL.getCode(), ResultCodeEnum.FAIL.getFormatMessage("发送消息"));
     }
+    @Override
+    public Result<MessageInfo> sendFileMsg(ToKenContext<MessageSendFileReq> req) {
 
+        ToKenContext<MessageInfo> sendMsgReq = new ToKenContext<>();
+        BeanUtils.copyProperties(req, sendMsgReq);
+        MessageInfo messageInfo = new MessageInfo();
+        BeanUtils.copyProperties(req.getContent(), messageInfo);
+        sendMsgReq.setContent(messageInfo);
+        Result<MessageInfo> messageInfoResult = this.sendMsg(sendMsgReq);
+        if(messageInfoResult.isSucceed()) {
+            MessageInfo resultMessage = messageInfoResult.getContent();
+            MessageInfoFile messageInfoFile = new MessageInfoFile();
+            messageInfoFile.setFilePath(req.getContent().getFilePath());
+            messageInfoFile.setMessageId(resultMessage.getId());
+            messageInfoFile.setCreateBy(req.getUserToken().getId());
+            messageInfoFile.setCreateTime(new Date());
+            messageInfoFileDao.insert(messageInfoFile, true);
+        }
+        return messageInfoResult;
+    }
     /**
      * 发送消息
      * @param req
@@ -106,7 +128,7 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
 
 
     @Override
-    public Result<MessageInfo> getMsg(MessageGetServiceReq req) {
+    public Result<MessageInfo> getMsg(ToKenContext req) {
         try {
             MessageInfo messageInfo = activeMQUtils.getMessage(req.getUserToken().getId() + "", MessageInfo.class);
             if(messageInfo != null) {
@@ -119,6 +141,12 @@ public class MessageServiceImpl extends BaseServiceImpl<MessageInfo> implements 
             LogUtils.error("获取消息失败!", e);
         }
         return new Result(ResultCodeEnum.FAIL.getCode(), ResultCodeEnum.FAIL.getFormatMessage("获取消息"));
+    }
+    @Override
+    public Result readMsg(ToKenContext<MessageInfo> req) {
+        messageDao.executeUpdate("update message_info set status='YD' where status ='YSD' create_by=? and to_user=?", new Object[]{req.getContent().getCreateBy(), req.getUserToken().getId()});
+        return new Result(ResultCodeEnum.SUCCESS);
+
     }
 }
 

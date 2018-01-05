@@ -7,26 +7,18 @@ import com.ltsh.chat.service.api.MessageService;
 import com.ltsh.chat.service.entity.MessageInfo;
 import com.ltsh.chat.service.enums.SendTypeEnums;
 import com.ltsh.chat.service.req.message.MessageSendGroupReq;
-import com.ltsh.chat.service.req.message.MessageSendServiceReq;
 import com.ltsh.chat.service.resp.Result;
-import com.ltsh.chat.web.business.message.controller.MessageController;
 import com.ltsh.chat.web.start.StartUp;
 import com.ltsh.common.entity.ToKenContext;
 import com.ltsh.common.entity.UserToken;
 import com.ltsh.common.util.JsonUtils;
-import com.ltsh.common.util.LogUtils;
 import com.ltsh.common.util.StringUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 
 /**
@@ -42,6 +34,7 @@ public class MessageServiceImplTest {
 
     @Test
     public void sendMsg() throws Exception {
+
         ToKenContext<MessageInfo> toKenContext = new ToKenContext<>();
         MessageInfo messageInfo = new MessageInfo();
         messageInfo.setMsgType(0);
@@ -51,7 +44,19 @@ public class MessageServiceImplTest {
         toKenContext.setContent(messageInfo);
         UserToken userToken = new UserToken(2, "test2", "", "", StringUtils.getUUID());
         toKenContext.setUserToken(userToken);
-        messageService.sendMsg(toKenContext);
+        for (int i = 0; i < 10; i++) {
+            messageInfo.setMsgContext("test2发来的消息" + i);
+            messageService.sendMsg(toKenContext);
+        }
+
+    }
+    @Test
+    public void getMsg() throws Exception {
+        ToKenContext toKenContext = new ToKenContext();
+        UserToken userToken = new UserToken(1, "test1", "", "", StringUtils.getUUID());
+        toKenContext.setUserToken(userToken);
+        Result<MessageInfo> msg = messageService.getMsg(toKenContext);
+        System.out.println("结果:" + JsonUtils.toJson(msg));
     }
     @Test
     public void sendGroupMsg() throws Exception {

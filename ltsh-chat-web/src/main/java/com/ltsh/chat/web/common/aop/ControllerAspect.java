@@ -121,7 +121,7 @@ public class ControllerAspect {
             MDC.put("keep", keep);
             boolean isSkip = false;
 
-            if(pjp.getSignature().getName().equals("getMessage")) {
+            if(pjp.getSignature().getName().equals("getMessage") || pjp.getSignature().getName().equals("getRandomStr")) {
                 isSkip = true;
             }
             if(!isSkip) {
@@ -155,7 +155,7 @@ public class ControllerAspect {
                 String randomStr = RedisUtil.get(RedisKey.getRedisKey(RedisKey.RANDOM_KEY, signObj.getMedium(), signObj.getRandomKey()));
                 RedisUtil.del(RedisKey.getRedisKey(RedisKey.getRedisKey(RedisKey.RANDOM_KEY, signObj.getMedium(), signObj.getRandomKey())));
                 sign = SignUtils.getSign(signStr, "123456", randomStr);
-                LogUtils.info("randomStr:{}", randomStr);
+//                LogUtils.info("randomStr:{}", randomStr);
             } else {
                 sign = SignUtils.getSign(signStr, "123456", "");
             }

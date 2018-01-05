@@ -3,16 +3,17 @@ package com.ltsh.chat.service.req.message;
 import com.ltsh.chat.service.entity.MessageInfo;
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * Created by fengjianbo on 2017/12/28.
  */
 @Data
-public class MessageSendGroupReq extends MessageInfo {
+public class MessageSendFileReq extends MessageInfo {
     /**
-     * 群组id
+     * 文件路径
      */
-    private Integer groupId;
-
+    private String filePath;
+    /**
+     * 文件类型
+     */
+    private String fileType;
 }

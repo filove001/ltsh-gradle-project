@@ -24,7 +24,7 @@ public class ActiveMQUtils {
     //默认连接密码
     private String password = ActiveMQConnection.DEFAULT_PASSWORD;
     //默认连接地址
-    private String brokeUrl = ActiveMQConnection.DEFAULT_BROKER_URL;
+    private String brokeUrl = "failover:(tcp://192.168.22.214:61616)?randomize=false";
     //
     private int acknowledgeMode = Session.AUTO_ACKNOWLEDGE;
     private Long pollTime = 20 * 1000L;
@@ -88,12 +88,13 @@ public class ActiveMQUtils {
                 }
                 queue = session.createQueue(queueName);
                 consumer = session.createConsumer(queue);
+
                 consumerHashMap.put(queueName, consumer);
             }
 
 
             TextMessage textMessage = (TextMessage)consumer.receive(pollTime);
-//            session.commit();
+            session.commit();
             if(textMessage != null) {
                 String text = textMessage.getText();
                 if(!StringUtils.isEmpty(text)) {
@@ -102,6 +103,10 @@ public class ActiveMQUtils {
             }
 
         } finally {
+            if(consumerHashMap.get(queueName) != null) {
+                consumerHashMap.get(queueName).close();
+                consumerHashMap.remove(queueName);
+            }
             if(consumer != null) {
                 consumer.close();
             }
